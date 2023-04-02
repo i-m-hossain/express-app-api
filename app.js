@@ -10,4 +10,4 @@ config({path: "./config.env"});
 app.use(express.json());
 
 // all the routes
-app.use("/users", userRouter);
+app.use("/api/v1/users", userRouter);
