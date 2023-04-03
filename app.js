@@ -35,3 +35,12 @@ app.use("/api/v1/tasks", taskRouter);
 app.get("/", (req, res) => {
   res.json({ message: "hello world" });
 });
+
+// error middleware
+
+app.use((err, req, res, next) => {
+  return res.status(404).json({
+    success: false,
+    message: err.message,
+  });
+});
