@@ -56,11 +56,12 @@ const updateTask = async (req, res) => {
         });
     }
 };
-const deleteTask = async (req, res) => {
+const deleteTask = async (req, res, next) => {
     const { taskId } = req.params;
     const query = { _id: taskId };
     try {
-        await Task.deleteOne(query);
+        const task = await Task.findById(query);
+        if(!task) return next(new Error("invalid id"))
         res.status(200).json({
             success: true,
             message: "task is deleted successfully",
