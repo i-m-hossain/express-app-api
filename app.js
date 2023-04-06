@@ -7,6 +7,7 @@ import cors from "cors";
 //import modules
 import userRouter from "./routes/user.js";
 import taskRouter from "./routes/task.js";
+import { errorMiddleware } from "./middleware/error.js";
 
 // app
 export const app = express();
@@ -33,14 +34,8 @@ app.use("/api/v1/tasks", taskRouter);
 
 // test api
 app.get("/", (req, res) => {
-  res.json({ message: "hello world" });
+    res.json({ message: "hello world" });
 });
 
 // error middleware
-
-app.use((err, req, res, next) => {
-  return res.status(404).json({
-    success: false,
-    message: err.message,
-  });
-});
+app.use(errorMiddleware);
